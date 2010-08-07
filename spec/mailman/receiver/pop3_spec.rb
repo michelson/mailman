@@ -7,7 +7,8 @@ describe Mailman::Receiver::POP3 do
     @receiver_options = { :username  => 'user',
                           :password  => 'pass',
                           :server    =>  'example.com',
-                          :processor => @processor }
+                          :processor => @processor , 
+                          :ssl=>true }
     @receiver = Mailman::Receiver::POP3.new(@receiver_options)
   end
 
