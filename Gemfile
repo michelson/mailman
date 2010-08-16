@@ -5,9 +5,13 @@ group :runtime do
   gem 'activesupport',  '>= 2.3.4'
   gem 'fssm',           '>= 0.1.4'
   gem 'maildir',        '>= 0.5.0'
+  
+  
 end
 
 group :test do
   gem 'rake'
   gem 'rspec'
+  gem 'yajl-ruby'
+  gem 'json'
 end

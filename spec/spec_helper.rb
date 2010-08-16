@@ -3,9 +3,11 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'fileutils'
 require 'mailman'
 require 'spec'
+require 'yajl'
+require 'json/pure'
 require 'spec/autorun'
 require 'pop3_mock'
-require 'imap_mock'
+#require 'imap_mock'
 
 
 unless defined?(SPEC_ROOT)

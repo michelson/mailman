@@ -82,6 +82,15 @@ module Mailman
       def get_messages
         @connection.select('INBOX')
         @connection.uid_search(['ALL']).each do |uid|
+          
+          yml = YAML::dump(@connection.uid_fetch(uid,'RFC822'))
+          puts yml
+          
+          #puts @connection.uid_fetch(uid,'RFC822').inspect
+          #puts "****"
+          #puts @connection.uid_fetch(uid,'RFC822')
+          
+          
           msg = @connection.uid_fetch(uid,'RFC822').first.attr['RFC822']
           
           @processor.process(msg)

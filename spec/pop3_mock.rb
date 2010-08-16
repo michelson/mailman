@@ -63,9 +63,7 @@ class MockPOP3
   def reset
   end
   
-  def logout
-    true
-  end
+
 
   def finish
     @@start = false
