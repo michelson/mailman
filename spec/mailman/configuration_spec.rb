@@ -22,6 +22,11 @@ describe Mailman::Configuration do
     config.pop3 = {:user => 'foo'}
     config.pop3.should == {:user => 'foo'}
   end
+  
+  it 'should store the IMAP config hash' do
+    config.imap = {:user => 'foo'}
+    config.imap.should == {:user => 'foo'}
+  end
 
   it 'should have a default poll interval' do
     config.poll_interval = nil

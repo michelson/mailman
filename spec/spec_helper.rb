@@ -5,6 +5,8 @@ require 'mailman'
 require 'spec'
 require 'spec/autorun'
 require 'pop3_mock'
+require 'imap_mock'
+
 
 unless defined?(SPEC_ROOT)
   SPEC_ROOT = File.join(File.dirname(__FILE__))

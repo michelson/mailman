@@ -20,5 +20,7 @@ doc
 pkg
 *.rbc
 .bundle
+config_files/imap_credentials.yml
+
 
 ## PROJECT::SPECIFIC

@@ -40,6 +40,26 @@ module Mailman
       if $stdin.fcntl(Fcntl::F_GETFL, 0) == 0 # we have stdin
         Mailman.logger.debug "Processing message from STDIN."
         @processor.process($stdin.read)
+      elsif Mailman.config.imap
+        options = {:processor => @processor}.merge(Mailman.config.imap)
+        Mailman.logger.info "IMAP receiver enabled (#{options[:username]}@#{options[:server]})."
+        connection = Receiver::IMAP.new(options)
+        begin
+          connection.connect
+          if Mailman.config.poll_interval > 0 # we should poll
+            Mailman.logger.info "Polling enabled. Checking every #{Mailman.config.poll_interval} seconds."
+            loop do
+              Mailman.logger.debug "Polling IMAP server for messages..."
+              connection.get_messages
+              sleep Mailman.config.poll_interval
+            end
+          else # one-time retrieval
+            Mailman.logger.info "Polling disabled. Checking for messages..."
+            connection.get_messages
+          end
+        ensure
+          connection.disconnect
+        end
       elsif Mailman.config.pop3
         options = {:processor => @processor}.merge(Mailman.config.pop3)
         Mailman.logger.info "POP3 receiver enabled (#{options[:username]}@#{options[:server]})."

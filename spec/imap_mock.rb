@@ -1,6 +1,5 @@
-# From http://github.com/mikel/mail/blob/master/spec/spec_helper.rb#L89
 
-class MockPopMail
+class MockImapMail
   def initialize(rfc2822, number)
     @rfc2822 = rfc2822
     @number = number
@@ -19,13 +18,13 @@ class MockPopMail
   end
 end
 
-class MockPOP3
+class MockIMAP
   @@start = false
 
   def initialize
     @@popmails = []
     2.times do |i|
-      @@popmails << MockPopMail.new("To: test@example.com\r\nFrom: chunky@bacon.com\r\nSubject: Hello!\r\n\r\nemail message\r\ntest#{i.to_s}", i)
+      @@popmails << MockImapMail.new("To: test@example.com\r\nFrom: chunky@bacon.com\r\nSubject: Hello!\r\n\r\nemail message\r\ntest#{i.to_s}", i)
     end
   end
 
@@ -62,10 +61,6 @@ class MockPOP3
 
   def reset
   end
-  
-  def logout
-    true
-  end
 
   def finish
     @@start = false
@@ -82,9 +77,9 @@ class MockPOP3
   end
 end
 
-require 'net/pop'
-class Net::POP3
+require 'net/imap'
+class Net::IMAP
   def self.new(*args)
-    MockPOP3.new
+    MockIMAP.new
   end
 end
